@@ -93,7 +93,7 @@ ls_repos() {
 clone_one_repo() {
   echo >&2
   echo >&2 "======= CLONING: $1"
-  git clone --bare "${clone_base}/$1" "$1"
+  git clone --mirror "${clone_base}/$1" "$1"
 }
 
 # $ update_one_repo REPO
@@ -105,8 +105,7 @@ update_one_repo() {
   echo >&2 "======= UPDATING: $1"
   (
     cd "$1"
-    git remote update
-    git pull --mirror
+    git fetch --all
   )
 }
 

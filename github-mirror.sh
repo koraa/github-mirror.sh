@@ -1,4 +1,4 @@
-#! /bin/
+#! /bin/sh
 #
 # Mirror all the public repos of a github user.
 #

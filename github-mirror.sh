@@ -93,7 +93,7 @@ ls_repos() {
 clone_one_repo() {
   echo >&2
   echo >&2 "======= CLONING: $1"
-  git clone "${clone_base}/$1" "$1"
+  git clone --bare "${clone_base}/$1" "$1"
 }
 
 # $ update_one_repo REPO
@@ -106,7 +106,7 @@ update_one_repo() {
   (
     cd "$1"
     git remote update
-    git pull
+    git pull --mirror
   )
 }
 
@@ -115,11 +115,8 @@ update_one_repo() {
 # Updates the given repo or clones it, depending on whether
 # it is already there.
 mirror_one_repo() {
-  if test -d "$1"; then
-    update_one_repo "$@"
-  else
-    clone_one_repo "$@"
-  fi
+  test -d "$1" || clone_one_repo "$@"
+  update_one_repo "$@"
 }
 
 # $ mirror [USER]...

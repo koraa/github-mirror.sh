@@ -16,7 +16,13 @@ and as a practical example, this is what I use:
 
    ```shell
    $ github-mirror.sh mirror koraa inexor-game premium-cola Shoctode soup
-   ```
+  ```
+
+You can also back up the wikis too:
+
+   ```shell
+   $ show_wiki=true github-mirror.sh mirror koraa inexor-game premium-cola Shoctode soup
+  ```
 
 Take care to start it in the right directory, because it
 always operates on relative paths. You can use braces, to
@@ -46,6 +52,12 @@ you can user mirror_one_repo and ls_repos to do that:
   ```
 
 ## Future directions
+
+The safety and error handling in this script are pretty weak
+at the moment. We should provide clearly visible error
+messages at the end of the output and we should add the
+option to disable informative output to stderr.
+This script should also use defined exit codes.
 
 If someone requests it, I am going to add the possibility to
 filter repos by regex.

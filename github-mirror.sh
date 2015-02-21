@@ -56,7 +56,7 @@ api_call() {
   curl "${api}/${1}" 2>/dev/null | "$json_reformat"
 }
 
-# $ ls_repos [USER]...
+# $ [show_wiki=true] ls_repos [USER]...
 #
 # List the public github repositories of all github users
 # listed in the form "$USER/$REPO_NAME".
@@ -69,6 +69,8 @@ api_call() {
 #   kitty/bum
 #   kitty/head
 #
+# ENV:
+#   show_wiki – allows you to list wikis too
 # ARGUMENTS:
 #   USER 1 – List the repos of this user
 #   USER 2 – List the repos of that user too
@@ -80,7 +82,7 @@ ls_repos() {
     api_call "users/${user}/repos" \
         | grep -Fi 'full_name'     \
         | grep -o "${user}/[^\"]*"
-  done
+  done | (test -n "$show_wiki" && sed 'p;s@$@.wiki@' || cat)
 }
 
 # $ clone_one_repo REPO
